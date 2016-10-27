@@ -3,6 +3,10 @@
 
 ## Write a short comment describing this function
 
+  ## This function get in input a matrix and return a list containing functions to
+  ## set the matrix, get the matrix,set the inverse and get the inverse.
+  ## The created list is used as the input to cacheSolve()
+
 makeCacheMatrix <- function(x = matrix()) {
 
   inv = NULL
@@ -14,30 +18,33 @@ makeCacheMatrix <- function(x = matrix()) {
   
   get = function() x
   
-  setinv = function(inverse) inv <<- inverse 
+  setinverse = function(inverse) inv <<- inverse 
   
-  getinv = function() inv
+  getinverse = function() inv
   
-  list(set=set, get=get, setinv=setinv, getinv=getinv)
+  list(set=set, get=get, setinverse=setinverse, getinverse=getinverse)
 }
 
 
 
 ## Write a short comment describing this function
 
+  ## The output of makeCacheMatrix() is the input of cacheSolve() function, which
+  ## return the inverse of the original matrix
+    
 cacheSolve <- function(x, ...) {
 
-  inv = x$getinv()
+  inv = x$getinverse()
   
   if (!is.null(inv)){
-    message("getting cached data")
+    message("using cached data")
     return(inv)
   }
   
   mat.data = x$get()
   inv = solve(mat.data, ...)
   
-  x$setinv(inv)
+  x$setinverse(inv)
   
   return(inv)
 }
